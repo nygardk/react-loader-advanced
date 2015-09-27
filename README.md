@@ -10,7 +10,7 @@ for the loaders so that the lower priority loaders will never show if
 there is another loader already showing. This is beneficial when you want to
 prevent transparent loaders overlapping, which would look ugly.
 
-<img src="gifs/loader-example.gif" alt="Loader example" style="width: 340px;"/>
+<img src="gifs/loader-example.gif" alt="Loader example" width"340" />
 
 ## Install
 
@@ -63,36 +63,44 @@ See more thorough structure in `./src/react-loader-advanced.jsx`.
 ## Options (props)
 
 __show__ (bool)
+<br>
 This is the only required prop.
 When _true_, loader overlay is displayed.
 When _false_, only actual content is displayed.
 
 __priority__ (int)
+<br>
 The loader(s) with the highest priority will always be the only loader(s)
 showing. If loaders with lower priorities stop loading before the one with
 the highest priority, they will never be shown.
 Default priority is 0.
 
 __hideContentOnLoad__ (bool)
+<br>
 Hide content underneath loader overlay when loading.
 
 __backgroundBlur__ (int = px)
+<br>
 Blur the background on browsers that support CSS filter().
 
 __message__ (node = element|string)
+<br>
 Set the displayed message on foreground while loading.
 Can be an arbitrary element or just a simple string.
 Defaults to "loading...".
 
 __foregroundStyle__ (obj)
+<br>
 Set a style for the loader foreground.
 Extends default styles.
 
 __backgroundStyle__ (obj)
+<br>
 Set a style for the loader background.
 Extends default styles.
 
 __disableDefaultStyles__ (bool)
+<br>
 Disables all default styles if set to _true_ (not recommended).
 
 ## License
