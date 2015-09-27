@@ -10,7 +10,7 @@ for the loaders so that the lower priority loaders will never show if
 there is another loader already showing. This is beneficial when you want to
 prevent transparent loaders overlapping, which would look ugly.
 
-<img src="gifs/loader-example.gif" alt="Loader example" width"340" />
+<img src="gifs/loader-example.gif" alt="Loader example" width="340" />
 
 ## Install
 
