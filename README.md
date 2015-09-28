@@ -10,7 +10,7 @@ for the loaders so that the lower priority loaders will never show if
 there is another loader already showing. This is beneficial when you want to
 prevent transparent loaders overlapping, which would look ugly.
 
-<img src="gifs/loader-example.gif" alt="Loader example" width="340" />
+<img src="gifs/loader-example.gif" alt="Loader example" width="340" style="width: 340px" />
 
 ## Install
 
@@ -39,8 +39,7 @@ You may disable all default styling by setting property
 *defaultStyle* as `false`.
 
 ```jsx
-<Loader defaultStyle={false}
-  foregroundStyle={{color: 'white'}}
+<Loader foregroundStyle={{color: 'white'}}
   backgroundStyle={{backgroundColor: 'black'}}>
 ...
 ```
