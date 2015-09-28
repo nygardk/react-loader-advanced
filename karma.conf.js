@@ -1,16 +1,12 @@
 'use strict';
 
 var path = require('path');
-var webpack = require('webpack');
 var RewirePlugin = require('rewire-webpack');
 
 var webpackConfig = {
   devtool: 'inline-source-map',
   resolve: {
-    root: [
-      path.resolve('./src/js'),
-      path.resolve('./src')
-    ],
+    root: [path.resolve('./src')],
     extensions: ['', '.js', '.jsx']
   },
   module: {

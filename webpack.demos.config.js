@@ -32,10 +32,7 @@ module.exports = {
     ]
   },
   resolve: {
-    root: [
-      path.resolve('./src/js'),
-      path.resolve('./src')
-    ],
+    root: [path.resolve('./src')],
     extensions: ['', '.js', '.jsx']
   },
   plugins: ENV === 'development'
