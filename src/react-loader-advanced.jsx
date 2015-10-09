@@ -186,7 +186,7 @@ const Loader = React.createClass({
           </div>
         </div>
       </div>
-    ) : (<div style={loaderStyle}>children</div>);
+    ) : (<div style={loaderStyle}>{children}</div>);
   }
 });
 
