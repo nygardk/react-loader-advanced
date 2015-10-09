@@ -65,10 +65,7 @@ const Loader = React.createClass({
   propTypes: {
     backgroundStyle: React.PropTypes.object,
 
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(React.PropTypes.node),
-      React.PropTypes.node
-    ]),
+    children: React.PropTypes.element,
 
     // blur loader content while loading
     contentBlur: React.PropTypes.number,
