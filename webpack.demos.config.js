@@ -5,7 +5,8 @@ var ENV = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
-    demo0: ['babel-core/polyfill', './demos/demo0/index.jsx']
+    demo0: ['babel-core/polyfill', './demos/demo0/index.jsx'],
+    demo1: ['babel-core/polyfill', './demos/demo1/index.jsx']
   },
   contentBase: './demos',
   output: {
