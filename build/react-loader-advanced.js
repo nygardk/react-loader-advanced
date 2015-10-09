@@ -91,7 +91,7 @@ var Loader = _react2['default'].createClass({
   propTypes: {
     backgroundStyle: _react2['default'].PropTypes.object,
 
-    children: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.node), _react2['default'].PropTypes.node]),
+    children: _react2['default'].PropTypes.element,
 
     // blur loader content while loading
     contentBlur: _react2['default'].PropTypes.number,
@@ -109,7 +109,9 @@ var Loader = _react2['default'].createClass({
     // stack priority
     priority: _react2['default'].PropTypes.number,
 
-    show: _react2['default'].PropTypes.bool.isRequired
+    show: _react2['default'].PropTypes.bool.isRequired,
+
+    style: _react2['default'].PropTypes.object
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -161,6 +163,7 @@ var Loader = _react2['default'].createClass({
     var foregroundStyle = _props.foregroundStyle;
     var hideContentOnLoad = _props.hideContentOnLoad;
     var message = _props.message;
+    var style = _props.style;
     var show = _props.show;
     var active = this.state.active;
 
@@ -172,9 +175,10 @@ var Loader = _react2['default'].createClass({
 
     var msgStyle = disableDefaultStyles ? {} : messageDefaultStyle;
 
-    var loaderStyle = { position: 'relative' };
+    var loaderStyle = _extends({ position: 'relative' }, style);
 
     var contentStyle = Object.assign({
+      position: 'relative',
       opacity: hideContentOnLoad && show ? 0 : 1
     }, shouldShowLoader && contentBlur ? {
       'WebkitFilter': 'blur(' + contentBlur + 'px)',
@@ -205,7 +209,11 @@ var Loader = _react2['default'].createClass({
           )
         )
       )
-    ) : children;
+    ) : _react2['default'].createElement(
+      'div',
+      { style: loaderStyle },
+      'children'
+    );
   }
 });
 
