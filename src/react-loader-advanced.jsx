@@ -159,6 +159,7 @@ const Loader = React.createClass({
     const loaderStyle = {position: 'relative'};
 
     const contentStyle = Object.assign({
+      position: 'relative',
       opacity: hideContentOnLoad && show ? 0 : 1
     }, shouldShowLoader && contentBlur ? {
       'WebkitFilter': `blur(${contentBlur}px)`,
