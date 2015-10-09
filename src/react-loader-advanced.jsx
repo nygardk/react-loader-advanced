@@ -83,7 +83,9 @@ const Loader = React.createClass({
     // stack priority
     priority: React.PropTypes.number,
 
-    show: React.PropTypes.bool.isRequired
+    show: React.PropTypes.bool.isRequired,
+
+    style: React.PropTypes.object
   },
 
   getDefaultProps() {
@@ -135,6 +137,7 @@ const Loader = React.createClass({
       foregroundStyle,
       hideContentOnLoad,
       message,
+      style,
       show
     } = this.props;
 
@@ -156,7 +159,7 @@ const Loader = React.createClass({
 
     const msgStyle = disableDefaultStyles ? {} : messageDefaultStyle;
 
-    const loaderStyle = {position: 'relative'};
+    const loaderStyle = {position: 'relative', ...style};
 
     const contentStyle = Object.assign({
       position: 'relative',
@@ -183,7 +186,7 @@ const Loader = React.createClass({
           </div>
         </div>
       </div>
-    ) : children;
+    ) : (<div style={loaderStyle}>children</div>);
   }
 });
 
