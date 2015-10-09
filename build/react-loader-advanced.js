@@ -212,7 +212,7 @@ var Loader = _react2['default'].createClass({
     ) : _react2['default'].createElement(
       'div',
       { style: loaderStyle },
-      'children'
+      children
     );
   }
 });
