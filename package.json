@@ -1,6 +1,6 @@
 {
   "name": "react-loader-advanced",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "Show loader overlaying your component during async events.",
   "main": "./build/react-loader-advanced.js",
   "scripts": {

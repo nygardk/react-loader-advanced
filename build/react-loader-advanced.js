@@ -91,7 +91,7 @@ var Loader = _react2['default'].createClass({
   propTypes: {
     backgroundStyle: _react2['default'].PropTypes.object,
 
-    children: _react2['default'].PropTypes.element,
+    children: _react2['default'].PropTypes.node,
 
     // blur loader content while loading
     contentBlur: _react2['default'].PropTypes.number,
