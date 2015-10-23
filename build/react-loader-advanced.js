@@ -193,18 +193,18 @@ var Loader = _react2['default'].createClass({
       { className: 'Loader', style: loaderStyle },
       _react2['default'].createElement(
         'div',
-        { className: 'Loader--content', style: contentStyle },
+        { className: 'Loader__content', style: contentStyle },
         children
       ),
       _react2['default'].createElement(
         'div',
-        { className: 'Loader--background', style: bgStyle },
+        { className: 'Loader__background', style: bgStyle },
         _react2['default'].createElement(
           'div',
-          { className: 'Loader--foreground', style: fgStyle },
+          { className: 'Loader__foreground', style: fgStyle },
           _react2['default'].createElement(
             'div',
-            { className: 'Loader--message', style: msgStyle },
+            { className: 'Loader__message', style: msgStyle },
             message || 'loading...'
           )
         )
