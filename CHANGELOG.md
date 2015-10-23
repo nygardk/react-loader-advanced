@@ -5,7 +5,7 @@
 CSS styles now follow correct BEM-naming. Update your classes if you have
 overriden Loader classes.
 
-Loader--content -> Loader__content
-Loader--background -> Loader__background
-Loader--foreground -> Loader__foreground
-Loader--message -> Loader__message
+* Loader--content => Loader__content
+* Loader--background => Loader__background
+* Loader--foreground => Loader__foreground
+* Loader--message => Loader__message
