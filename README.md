@@ -51,9 +51,9 @@ __4. Optionally if you wish, hack the loader using CSS styles
 knowing the class-hierarchy__
 
 ```html
-<div class="Loader--background">
-  <div class="Loader--foreground">
-    <div class="Loader--message">
+<div class="Loader__background">
+  <div class="Loader__foreground">
+    <div class="Loader__message">
       Loading
     </div>
   </div>

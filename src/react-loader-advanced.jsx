@@ -174,13 +174,13 @@ const Loader = React.createClass({
 
     return shouldShowLoader ? (
       <div className="Loader" style={loaderStyle}>
-        <div className="Loader--content" style={contentStyle}>
+        <div className="Loader__content" style={contentStyle}>
           {children}
         </div>
 
-        <div className="Loader--background" style={bgStyle}>
-          <div className="Loader--foreground" style={fgStyle}>
-            <div className="Loader--message" style={msgStyle}>
+        <div className="Loader__background" style={bgStyle}>
+          <div className="Loader__foreground" style={fgStyle}>
+            <div className="Loader__message" style={msgStyle}>
               {message || 'loading...'}
             </div>
           </div>
