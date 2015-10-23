@@ -17,6 +17,9 @@ prevent transparent loaders overlapping, which would look ugly.
 ```shell
 npm install react-loader-advanced --save
 ```
+## Compatibility
+
+Compatible with React versions `0.13.x` and `0.14.x`.
 
 ## Usage
 
