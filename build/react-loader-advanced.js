@@ -1,12 +1,10 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
 
@@ -14,13 +12,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _events = require('events');
 
-var _lodashMax = require('lodash.max');
+var _lodash = require('lodash.max');
 
-var _lodashMax2 = _interopRequireDefault(_lodashMax);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _uuid = require('uuid');
 
 var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var backgroundDefaultStyle = {
   display: 'block',
@@ -69,7 +69,7 @@ var loaderStack = _extends({}, _events.EventEmitter.prototype, {
     });
   },
   getMaxPriority: function getMaxPriority() {
-    var max = (0, _lodashMax2['default'])(this.stack, function (loader) {
+    var max = (0, _lodash2.default)(this.stack, function (loader) {
       return loader.priority;
     });
     return max ? max.priority : 0;
@@ -85,61 +85,55 @@ var loaderStack = _extends({}, _events.EventEmitter.prototype, {
   }
 });
 
-var Loader = _react2['default'].createClass({
+var Loader = _react2.default.createClass({
   displayName: 'Loader',
 
   propTypes: {
-    backgroundStyle: _react2['default'].PropTypes.object,
+    backgroundStyle: _react2.default.PropTypes.object,
 
-    children: _react2['default'].PropTypes.node,
+    children: _react2.default.PropTypes.node,
 
     // blur loader content while loading
-    contentBlur: _react2['default'].PropTypes.number,
+    contentBlur: _react2.default.PropTypes.number,
 
     // disables all default styles if true
-    disableDefaultStyles: _react2['default'].PropTypes.bool,
+    disableDefaultStyles: _react2.default.PropTypes.bool,
 
-    foregroundStyle: _react2['default'].PropTypes.object,
+    foregroundStyle: _react2.default.PropTypes.object,
 
-    hideContentOnLoad: _react2['default'].PropTypes.bool,
+    hideContentOnLoad: _react2.default.PropTypes.bool,
 
     // loader message or element
-    message: _react2['default'].PropTypes.node,
+    message: _react2.default.PropTypes.node,
 
     // stack priority
-    priority: _react2['default'].PropTypes.number,
+    priority: _react2.default.PropTypes.number,
 
-    show: _react2['default'].PropTypes.bool.isRequired,
+    show: _react2.default.PropTypes.bool.isRequired,
 
-    style: _react2['default'].PropTypes.object
+    style: _react2.default.PropTypes.object
   },
 
   getDefaultProps: function getDefaultProps() {
     return { priority: 0 };
   },
-
   getInitialState: function getInitialState() {
     return { active: false };
   },
-
   componentWillMount: function componentWillMount() {
-    this._stackId = _uuid2['default'].v1();
+    this._stackId = _uuid2.default.v1();
   },
-
   componentDidMount: function componentDidMount() {
     loaderStack.addChangeListener(this.onStackChange);
     this.initialize(this.props);
   },
-
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     this.initialize(nextProps);
   },
-
-  componentWillUnmount: function componentWillUnmount() {
+  componentDidUnmount: function componentDidUnmount() {
     loaderStack.removeChangeListener(this.onStackChange);
     loaderStack.removeLoader(this._stackId);
   },
-
   initialize: function initialize(props) {
     if (props.show) {
       loaderStack.addLoader(this._stackId, props.priority);
@@ -147,13 +141,11 @@ var Loader = _react2['default'].createClass({
       loaderStack.removeLoader(this._stackId);
     }
   },
-
   onStackChange: function onStackChange() {
     this.setState({
       active: loaderStack.getMaxPriority() === this.props.priority
     });
   },
-
   render: function render() {
     var _props = this.props;
     var backgroundStyle = _props.backgroundStyle;
@@ -166,6 +158,7 @@ var Loader = _react2['default'].createClass({
     var style = _props.style;
     var show = _props.show;
     var active = this.state.active;
+
 
     var shouldShowLoader = !!active && !!show;
 
@@ -188,28 +181,28 @@ var Loader = _react2['default'].createClass({
       'filter': 'blur(' + contentBlur + 'px)'
     } : {});
 
-    return shouldShowLoader ? _react2['default'].createElement(
+    return shouldShowLoader ? _react2.default.createElement(
       'div',
       { className: 'Loader', style: loaderStyle },
-      _react2['default'].createElement(
+      _react2.default.createElement(
         'div',
         { className: 'Loader__content', style: contentStyle },
         children
       ),
-      _react2['default'].createElement(
+      _react2.default.createElement(
         'div',
         { className: 'Loader__background', style: bgStyle },
-        _react2['default'].createElement(
+        _react2.default.createElement(
           'div',
           { className: 'Loader__foreground', style: fgStyle },
-          _react2['default'].createElement(
+          _react2.default.createElement(
             'div',
             { className: 'Loader__message', style: msgStyle },
             message || 'loading...'
           )
         )
       )
-    ) : _react2['default'].createElement(
+    ) : _react2.default.createElement(
       'div',
       { style: loaderStyle },
       children
@@ -217,5 +210,4 @@ var Loader = _react2['default'].createClass({
   }
 });
 
-exports['default'] = Loader;
-module.exports = exports['default'];
+exports.default = Loader;
