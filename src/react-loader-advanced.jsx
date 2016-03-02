@@ -109,7 +109,7 @@ const Loader = React.createClass({
     this.initialize(nextProps);
   },
 
-  componentWillUnmount() {
+  componentDidUnmount() {
     loaderStack.removeChangeListener(this.onStackChange);
     loaderStack.removeLoader(this._stackId);
   },
