@@ -123,9 +123,11 @@ const Loader = React.createClass({
   },
 
   onStackChange() {
-    this.setState({
-      active: loaderStack.getMaxPriority() === this.props.priority
-    });
+    if (this.isMounted()) {
+      this.setState({
+        active: loaderStack.getMaxPriority() === this.props.priority
+      });
+    }
   },
 
   render() {
