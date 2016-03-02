@@ -142,9 +142,11 @@ var Loader = _react2.default.createClass({
     }
   },
   onStackChange: function onStackChange() {
-    this.setState({
-      active: loaderStack.getMaxPriority() === this.props.priority
-    });
+    if (this.isMounted()) {
+      this.setState({
+        active: loaderStack.getMaxPriority() === this.props.priority
+      });
+    }
   },
   render: function render() {
     var _props = this.props;
