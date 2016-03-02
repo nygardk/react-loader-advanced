@@ -88,8 +88,8 @@ Blur the background on browsers that support CSS filter().
 __message__ (node = element|string)
 <br>
 Set the displayed message on foreground while loading.
-Can be an arbitrary element or just a simple string.
-Defaults to "loading...".
+Can be an arbitrary element like a spinner of your choice
+-- or just a simple string. Defaults to string "loading...".
 
 __foregroundStyle__ (obj)
 <br>
@@ -104,6 +104,21 @@ Extends default styles.
 __disableDefaultStyles__ (bool)
 <br>
 Disables all default styles if set to _true_ (not recommended).
+
+## FAQ
+
+##### Can I use a spinner element?
+
+Yes, you can define a spinner element in the message-prop.
+
+e.g.:
+```
+const spinner = <span>any-spinner-you-want</span>;
+
+<Loader message={spinner}>
+...
+</Loader>
+```
 
 ## License
 
