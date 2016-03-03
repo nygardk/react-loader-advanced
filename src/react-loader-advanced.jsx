@@ -1,7 +1,9 @@
 import React from 'react';
 import { EventEmitter } from 'events';
-import uuid from 'uuid';
 
+function uid() {
+  return Math.random().toString(36).substr(2, 9);
+}
 
 const backgroundDefaultStyle = {
   display: 'block',
@@ -103,7 +105,7 @@ const Loader = React.createClass({
   },
 
   componentWillMount() {
-    this._stackId = uuid.v1();
+    this._stackId = uid();
   },
 
   componentDidMount() {
