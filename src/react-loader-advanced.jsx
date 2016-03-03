@@ -50,7 +50,7 @@ const loaderStack = {...EventEmitter.prototype,
   getMaxPriority() {
     let max = 0;
 
-    for (let value of this.stack) {
+    for (const value of this.stack) {
       if (value.priority > max) {
         max = value.priority;
       }

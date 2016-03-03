@@ -12,15 +12,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _events = require('events');
 
-var _lodash = require('lodash.max');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _uuid = require('uuid');
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function uid() {
+  return Math.random().toString(36).substr(2, 9);
+}
 
 var backgroundDefaultStyle = {
   display: 'block',
@@ -69,10 +65,36 @@ var loaderStack = _extends({}, _events.EventEmitter.prototype, {
     });
   },
   getMaxPriority: function getMaxPriority() {
-    var max = (0, _lodash2.default)(this.stack, function (loader) {
-      return loader.priority;
-    });
-    return max ? max.priority : 0;
+    var max = 0;
+
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = this.stack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var value = _step.value;
+
+        if (value.priority > max) {
+          max = value.priority;
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    return max;
   },
   emitChange: function emitChange() {
     this.emit('change');
@@ -121,7 +143,7 @@ var Loader = _react2.default.createClass({
     return { active: false };
   },
   componentWillMount: function componentWillMount() {
-    this._stackId = _uuid2.default.v1();
+    this._stackId = uid();
   },
   componentDidMount: function componentDidMount() {
     loaderStack.addChangeListener(this.onStackChange);
@@ -130,9 +152,18 @@ var Loader = _react2.default.createClass({
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     this.initialize(nextProps);
   },
-  componentDidUnmount: function componentDidUnmount() {
+  componentWillUnmount: function componentWillUnmount() {
+    var _this = this;
+
     loaderStack.removeChangeListener(this.onStackChange);
-    loaderStack.removeLoader(this._stackId);
+
+    // Bugfix: 3.3.2016
+    // setTimeout fixes rare bug with React 0.13 that is caused by unpredictable
+    // component lifecycle (Uncaught Error: Invariant Violation:
+    // must be mounted to trap events).
+    setTimeout(function () {
+      loaderStack.removeLoader(_this._stackId);
+    });
   },
   initialize: function initialize(props) {
     if (props.show) {
