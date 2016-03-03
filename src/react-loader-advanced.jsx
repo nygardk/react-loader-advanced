@@ -117,9 +117,16 @@ const Loader = React.createClass({
     this.initialize(nextProps);
   },
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     loaderStack.removeChangeListener(this.onStackChange);
-    loaderStack.removeLoader(this._stackId);
+
+    // Bugfix: 3.3.2016
+    // setTimeout fixes rare bug with React 0.13 that is caused by unpredictable
+    // component lifecycle (Uncaught Error: Invariant Violation:
+    // must be mounted to trap events).
+    setTimeout(() => {
+      loaderStack.removeLoader(this._stackId);
+    });
   },
 
   initialize(props) {
