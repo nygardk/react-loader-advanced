@@ -1,6 +1,5 @@
 import React from 'react';
 import { EventEmitter } from 'events';
-import findMax from 'lodash.max';
 import uuid from 'uuid';
 
 
@@ -47,8 +46,15 @@ const loaderStack = {...EventEmitter.prototype,
     return this.stack.findIndex(loader => loader.id === id);
   },
   getMaxPriority() {
-    const max = findMax(this.stack, loader => loader.priority);
-    return max ? max.priority : 0;
+    let max = 0;
+
+    for (let value of this.stack) {
+      if (value.priority > max) {
+        max = value.priority;
+      }
+    }
+
+    return max;
   },
   emitChange() {
     this.emit('change');
