@@ -189,21 +189,23 @@ const Loader = React.createClass({
       'filter': `blur(${contentBlur}px)`
     } : {});
 
-    return shouldShowLoader ? (
+    return (
       <div className="Loader" style={loaderStyle}>
         <div className="Loader__content" style={contentStyle}>
           {children}
         </div>
 
-        <div className="Loader__background" style={bgStyle}>
-          <div className="Loader__foreground" style={fgStyle}>
-            <div className="Loader__message" style={msgStyle}>
-              {message || 'loading...'}
+        {!!shouldShowLoader && (
+          <div className="Loader__background" style={bgStyle}>
+            <div className="Loader__foreground" style={fgStyle}>
+              <div className="Loader__message" style={msgStyle}>
+                {message || 'loading...'}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-    ) : (<div style={loaderStyle}>{children}</div>);
+    );
   }
 });
 
