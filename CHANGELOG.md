@@ -1,3 +1,8 @@
+## 1.1.1 (Mar 8, 2016)
+
+Very important bugfix: rendering was causing redundant mounts and
+unmounts that caused unwanted side-effects on rare cases.
+
 ## 0.7.0 (Oct 23, 2015)
 
 ### Breaking changes

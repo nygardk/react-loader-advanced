@@ -214,7 +214,7 @@ var Loader = _react2.default.createClass({
       'filter': 'blur(' + contentBlur + 'px)'
     } : {});
 
-    return shouldShowLoader ? _react2.default.createElement(
+    return _react2.default.createElement(
       'div',
       { className: 'Loader', style: loaderStyle },
       _react2.default.createElement(
@@ -222,7 +222,7 @@ var Loader = _react2.default.createClass({
         { className: 'Loader__content', style: contentStyle },
         children
       ),
-      _react2.default.createElement(
+      !!shouldShowLoader && _react2.default.createElement(
         'div',
         { className: 'Loader__background', style: bgStyle },
         _react2.default.createElement(
@@ -235,10 +235,6 @@ var Loader = _react2.default.createClass({
           )
         )
       )
-    ) : _react2.default.createElement(
-      'div',
-      { style: loaderStyle },
-      children
     );
   }
 });
