@@ -75,6 +75,8 @@ const Loader = React.createClass({
 
     children: React.PropTypes.node,
 
+    className: React.PropTypes.string,
+
     // blur loader content while loading
     contentBlur: React.PropTypes.number,
 
@@ -149,6 +151,7 @@ const Loader = React.createClass({
     const {
       backgroundStyle,
       children,
+      className,
       contentBlur,
       disableDefaultStyles,
       foregroundStyle,
@@ -189,8 +192,10 @@ const Loader = React.createClass({
       'filter': `blur(${contentBlur}px)`
     } : {});
 
+    const classes = 'Loader' + (!!className ? (' ' + className) : '');
+
     return (
-      <div className="Loader" style={loaderStyle}>
+      <div className={classes} style={loaderStyle}>
         <div className="Loader__content" style={contentStyle}>
           {children}
         </div>
