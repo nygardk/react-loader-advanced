@@ -115,6 +115,8 @@ var Loader = _react2.default.createClass({
 
     children: _react2.default.PropTypes.node,
 
+    className: _react2.default.PropTypes.string,
+
     // blur loader content while loading
     contentBlur: _react2.default.PropTypes.number,
 
@@ -183,6 +185,7 @@ var Loader = _react2.default.createClass({
     var _props = this.props;
     var backgroundStyle = _props.backgroundStyle;
     var children = _props.children;
+    var className = _props.className;
     var contentBlur = _props.contentBlur;
     var disableDefaultStyles = _props.disableDefaultStyles;
     var foregroundStyle = _props.foregroundStyle;
@@ -214,9 +217,11 @@ var Loader = _react2.default.createClass({
       'filter': 'blur(' + contentBlur + 'px)'
     } : {});
 
+    var classes = 'Loader' + (!!className ? ' ' + className : '');
+
     return _react2.default.createElement(
       'div',
-      { className: 'Loader', style: loaderStyle },
+      { className: classes, style: loaderStyle },
       _react2.default.createElement(
         'div',
         { className: 'Loader__content', style: contentStyle },
