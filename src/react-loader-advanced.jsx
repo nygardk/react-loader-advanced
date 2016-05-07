@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template, quote-props */
 import React from 'react';
 import { EventEmitter } from 'events';
 
@@ -13,7 +14,7 @@ const backgroundDefaultStyle = {
   width: '100%',
   height: '100%',
   backgroundColor: 'rgba(0,0,0,0.5)',
-  zIndex: 10
+  zIndex: 10,
 };
 
 const foregroundDefaultStyle = {
@@ -22,31 +23,37 @@ const foregroundDefaultStyle = {
   height: '100%',
   textAlign: 'center',
   zIndex: 20,
-  color: 'white'
+  color: 'white',
 };
 
 const messageDefaultStyle = {
   display: 'table-cell',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
 };
 
-const loaderStack = {...EventEmitter.prototype,
+const loaderStack = {
+  ...EventEmitter.prototype,
+
   stack: [],
+
   addLoader(id, priority = 0) {
     if (this.getIndex(id) === -1) {
-      this.stack.push({id, priority});
+      this.stack.push({ id, priority });
       this.emitChange();
     }
   },
+
   removeLoader(id) {
     if (this.getIndex(id) !== -1) {
       this.stack.splice(this.getIndex(id), 1);
       this.emitChange();
     }
   },
+
   getIndex(id) {
     return this.stack.findIndex(loader => loader.id === id);
   },
+
   getMaxPriority() {
     let max = 0;
 
@@ -58,15 +65,18 @@ const loaderStack = {...EventEmitter.prototype,
 
     return max;
   },
+
   emitChange() {
     this.emit('change');
   },
+
   addChangeListener(callback) {
     this.on('change', callback);
   },
+
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-  }
+  },
 };
 
 const Loader = React.createClass({
@@ -95,15 +105,15 @@ const Loader = React.createClass({
 
     show: React.PropTypes.bool.isRequired,
 
-    style: React.PropTypes.object
+    style: React.PropTypes.object,
   },
 
   getDefaultProps() {
-    return {priority: 0};
+    return { priority: 0 };
   },
 
   getInitialState() {
-    return {active: false};
+    return { active: false };
   },
 
   componentWillMount() {
@@ -131,19 +141,19 @@ const Loader = React.createClass({
     });
   },
 
+  onStackChange() {
+    if (this.isMounted()) {
+      this.setState({
+        active: loaderStack.getMaxPriority() === this.props.priority,
+      });
+    }
+  },
+
   initialize(props) {
     if (props.show) {
       loaderStack.addLoader(this._stackId, props.priority);
     } else {
       loaderStack.removeLoader(this._stackId);
-    }
-  },
-
-  onStackChange() {
-    if (this.isMounted()) {
-      this.setState({
-        active: loaderStack.getMaxPriority() === this.props.priority
-      });
     }
   },
 
@@ -158,11 +168,11 @@ const Loader = React.createClass({
       hideContentOnLoad,
       message,
       style,
-      show
+      show,
     } = this.props;
 
     const {
-      active
+      active,
     } = this.state;
 
     const shouldShowLoader = !!active && !!show;
@@ -179,17 +189,17 @@ const Loader = React.createClass({
 
     const msgStyle = disableDefaultStyles ? {} : messageDefaultStyle;
 
-    const loaderStyle = {position: 'relative', ...style};
+    const loaderStyle = { position: 'relative', ...style };
 
     const contentStyle = Object.assign({
       position: 'relative',
-      opacity: hideContentOnLoad && show ? 0 : 1
+      opacity: hideContentOnLoad && show ? 0 : 1,
     }, shouldShowLoader && contentBlur ? {
       'WebkitFilter': `blur(${contentBlur}px)`,
       'MozFilter': `blur(${contentBlur}px)`,
       'OFilter': `blur(${contentBlur}px)`,
       'msFilter': `blur(${contentBlur}px)`,
-      'filter': `blur(${contentBlur}px)`
+      'filter': `blur(${contentBlur}px)`,
     } : {});
 
     const classes = 'Loader' + (!!className ? (' ' + className) : '');
@@ -211,7 +221,7 @@ const Loader = React.createClass({
         )}
       </div>
     );
-  }
+  },
 });
 
 export default Loader;
