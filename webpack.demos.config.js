@@ -5,8 +5,8 @@ var ENV = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
-    demo0: ['babel-polyfill', './demos/demo0/index.jsx'],
-    demo1: ['babel-polyfill', './demos/demo1/index.jsx']
+    demo0: ['./demos/demo0/index.jsx'],
+    demo1: ['./demos/demo1/index.jsx']
   },
   contentBase: './demos',
   output: {
@@ -19,16 +19,16 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'eslint',
-        exclude: /node_modules|build/
+        exclude: /node_modules|lib/
       },
     ],
     loaders: [
       {
         test: /\.jsx?$/,
         loaders: ENV === 'development'
-          ? ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-2']
-          : ['babel?presets[]=react,presets[]=es2015,presets[]=stage-2'],
-        exclude: /node_modules|build/
+          ? ['react-hot', 'babel']
+          : ['babel'],
+        exclude: /node_modules|lib/
       }
     ]
   },

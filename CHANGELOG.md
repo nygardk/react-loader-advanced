@@ -1,3 +1,10 @@
+## 1.3.0 (May 7, 2016)
+
+* Removed babel-polyfill that was polluting globals. Now using
+babel-transform-runtime instead.
+
+* Internal changes.
+
 ## 1.1.1 (Mar 8, 2016)
 
 Very important bugfix: rendering was causing redundant mounts and
