@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'eslint',
-        exclude: /node_modules|build/
+        exclude: /node_modules|lib/
       },
     ],
     loaders: [
@@ -28,7 +28,7 @@ module.exports = {
         loaders: ENV === 'development'
           ? ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-2']
           : ['babel?presets[]=react,presets[]=es2015,presets[]=stage-2'],
-        exclude: /node_modules|build/
+        exclude: /node_modules|lib/
       }
     ]
   },
