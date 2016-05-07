@@ -1,11 +1,11 @@
 {
   "name": "react-loader-advanced",
-  "version": "1.3.0-alpha.1",
+  "version": "1.3.0",
   "description": "Show loader overlaying your component during async events.",
   "main": "./lib/react-loader-advanced.js",
   "scripts": {
     "build": "npm run lint && npm run build-src && npm run build-demos",
-    "build-src": "babel --presets es2015,react,stage-2 ./src --out-dir ./lib",
+    "build-src": "babel ./src --out-dir ./lib",
     "build-demos": "NODE_ENV=production webpack -p --config webpack.demos.config.js",
     "run-demos": "NODE_ENV=development webpack-dev-server --config webpack.demos.config.js --content-base demos/ --progress --colors",
     "lint": "eslint --ext .jsx ./src ./demos",
