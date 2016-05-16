@@ -38,14 +38,15 @@ __2. Wrap your component inside the loader__
 ```
 __3. Style the loader using foregroundStyle and backgroundStyle__
 
-You may disable all default styling by setting property
-*defaultStyle* as `false`.
-
 ```jsx
 <Loader foregroundStyle={{color: 'white'}}
   backgroundStyle={{backgroundColor: 'black'}}>
 ...
 ```
+
+You may optionally disable all default styling by setting property
+*`disableDefaultStyles`* to `true`.
+
 
 __4. Optionally if you wish, hack the loader using CSS styles
 knowing the class-hierarchy__
@@ -111,8 +112,7 @@ Disables all default styles if set to _true_ (not recommended).
 
 Yes, you can define a spinner element in the message-prop.
 
-e.g.:
-```
+```jsx
 const spinner = <span>any-spinner-you-want</span>;
 
 <Loader message={spinner}>
