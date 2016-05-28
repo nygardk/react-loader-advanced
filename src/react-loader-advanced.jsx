@@ -90,6 +90,8 @@ const Loader = React.createClass({
     // blur loader content while loading
     contentBlur: React.PropTypes.number,
 
+    contentStyle: React.PropTypes.object,
+
     // disables all default styles if true
     disableDefaultStyles: React.PropTypes.bool,
 
@@ -99,6 +101,8 @@ const Loader = React.createClass({
 
     // loader message or element
     message: React.PropTypes.node,
+
+    messageStyle: React.PropTypes.object,
 
     // stack priority
     priority: React.PropTypes.number,
@@ -163,10 +167,12 @@ const Loader = React.createClass({
       children,
       className,
       contentBlur,
+      contentStyle,
       disableDefaultStyles,
       foregroundStyle,
       hideContentOnLoad,
       message,
+      messageStyle,
       style,
       show,
     } = this.props;
@@ -177,36 +183,38 @@ const Loader = React.createClass({
 
     const shouldShowLoader = !!active && !!show;
 
-    const bgStyle = Object.assign({},
+    const bgStyle = Object.assign(
       disableDefaultStyles ? {} : backgroundDefaultStyle,
-      backgroundStyle || {}
+      backgroundStyle
     );
 
-    const fgStyle = Object.assign({},
+    const fgStyle = Object.assign(
       disableDefaultStyles ? {} : foregroundDefaultStyle,
-      foregroundStyle || {}
+      foregroundStyle
     );
 
-    const msgStyle = disableDefaultStyles ? {} : messageDefaultStyle;
+    const msgStyle = Object.assign(
+      disableDefaultStyles ? {} : messageDefaultStyle,
+      messageStyle,
+    );
 
     const loaderStyle = { position: 'relative', ...style };
 
-    const contentStyle = Object.assign({
-      position: 'relative',
-      opacity: hideContentOnLoad && show ? 0 : 1,
-    }, shouldShowLoader && contentBlur ? {
+    const finalContentStyle = Object.assign(shouldShowLoader && contentBlur ? {
       'WebkitFilter': `blur(${contentBlur}px)`,
       'MozFilter': `blur(${contentBlur}px)`,
       'OFilter': `blur(${contentBlur}px)`,
       'msFilter': `blur(${contentBlur}px)`,
       'filter': `blur(${contentBlur}px)`,
-    } : {});
+    } : {}, contentStyle, {
+      opacity: hideContentOnLoad && show ? 0 : 1,
+    });
 
     const classes = 'Loader' + (!!className ? (' ' + className) : '');
 
     return (
       <div className={classes} style={loaderStyle}>
-        <div className="Loader__content" style={contentStyle}>
+        <div className="Loader__content" style={finalContentStyle}>
           {children}
         </div>
 

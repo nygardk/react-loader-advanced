@@ -92,6 +92,10 @@ Set the displayed message on foreground while loading.
 Can be an arbitrary element like a spinner of your choice
 -- or just a simple string. Defaults to string "loading...".
 
+__messageStyle__ (obj)
+<br />
+Extends the message element style.
+
 __foregroundStyle__ (obj)
 <br>
 Set a style for the loader foreground.
@@ -102,9 +106,14 @@ __backgroundStyle__ (obj)
 Set a style for the loader background.
 Extends default styles.
 
+__contentStyle__ (obj)
+<br />
+Extends the content wrapper element style.
+
 __disableDefaultStyles__ (bool)
 <br>
-Disables all default styles if set to _true_ (not recommended).
+Disables default styles for background, foreground and message if set
+to _true_ (not recommended).
 
 ## FAQ
 
