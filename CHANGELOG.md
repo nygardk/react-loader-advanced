@@ -1,3 +1,9 @@
+## 1.4.0 (May 28, 2016)
+
+* Added `contentStyle` property to extend content container styles
+
+* Added `messageStyle` property to extend message container styles
+
 ## 1.3.0 (May 7, 2016)
 
 * Removed babel-polyfill that was polluting globals. Now using
