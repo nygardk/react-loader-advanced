@@ -10,7 +10,8 @@
     "run-demos": "NODE_ENV=development webpack-dev-server --config webpack.demos.config.js --content-base demos/ --progress --colors",
     "lint": "eslint --ext .jsx ./src ./demos",
     "test": "karma start --single-run",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "start": "npm run run-demos"
   },
   "keywords": [
     "react",
