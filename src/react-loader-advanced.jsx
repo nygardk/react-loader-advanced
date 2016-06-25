@@ -183,20 +183,20 @@ const Loader = React.createClass({
 
     const shouldShowLoader = !!active && !!show;
 
-    const bgStyle = Object.assign(
-      disableDefaultStyles ? {} : backgroundDefaultStyle,
-      backgroundStyle
-    );
+    const bgStyle = {
+      ...(disableDefaultStyles ? {} : backgroundDefaultStyle),
+      ...backgroundStyle,
+    };
 
-    const fgStyle = Object.assign(
-      disableDefaultStyles ? {} : foregroundDefaultStyle,
-      foregroundStyle
-    );
+    const fgStyle = {
+      ...(disableDefaultStyles ? {} : foregroundDefaultStyle),
+      ...foregroundStyle,
+    };
 
-    const msgStyle = Object.assign(
-      disableDefaultStyles ? {} : messageDefaultStyle,
-      messageStyle,
-    );
+    const msgStyle = {
+      ...(disableDefaultStyles ? {} : messageDefaultStyle),
+      ...messageStyle,
+    };
 
     const loaderStyle = { position: 'relative', ...style };
 
