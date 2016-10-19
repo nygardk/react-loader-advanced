@@ -82,7 +82,7 @@ __hideContentOnLoad__ (bool)
 <br>
 Hide content underneath loader overlay when loading.
 
-__backgroundBlur__ (int = px)
+__contentBlur__ (int = px)
 <br>
 Blur the background on browsers that support CSS filter().
 
