@@ -15,6 +15,24 @@
     button {
       margin: 0 0 10px 0;
     }
+
+    .fadeTransition-enter {
+      opacity: 0;
+    }
+
+    .fadeTransition-enter.fadeTransition-enter-active {
+      opacity: 1;
+      transition: opacity 300ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    }
+
+    .fadeTransition-leave {
+      opacity: 1;
+    }
+
+    .fadeTransition-leave.fadeTransition-leave-active {
+      opacity: 0;
+      transition: opacity 300ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    }
   </style>
 </head>
 <body>

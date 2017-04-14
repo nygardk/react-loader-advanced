@@ -1,6 +1,7 @@
 /* eslint-disable prefer-template, quote-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { EventEmitter } from 'events';
 
 function uid() {
@@ -111,6 +112,12 @@ class Loader extends Component {
     show: PropTypes.bool.isRequired,
 
     style: PropTypes.object,
+
+    transitionConfig: PropTypes.shape({
+      transitionName: PropTypes.string.isRequired,
+      transitionEnterTimeout: PropTypes.number.isRequired,
+      transitionLeaveTimeout: PropTypes.number.isRequired,
+    }),
   }
 
   static defaultProps = {
@@ -177,6 +184,7 @@ class Loader extends Component {
       messageStyle,
       style,
       show,
+      transitionConfig,
     } = this.props;
 
     const {
@@ -214,21 +222,27 @@ class Loader extends Component {
 
     const classes = 'Loader' + (!!className ? (' ' + className) : '');
 
+    const loaderElement = !!shouldShowLoader && (
+      <div className="Loader__background" style={bgStyle}>
+        <div className="Loader__foreground" style={fgStyle}>
+          <div className="Loader__message" style={msgStyle}>
+            {message}
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div className={classes} style={loaderStyle}>
         <div className="Loader__content" style={finalContentStyle}>
           {children}
         </div>
 
-        {!!shouldShowLoader && (
-          <div className="Loader__background" style={bgStyle}>
-            <div className="Loader__foreground" style={fgStyle}>
-              <div className="Loader__message" style={msgStyle}>
-                {message}
-              </div>
-            </div>
-          </div>
-        )}
+        {!!transitionConfig ? (
+          <ReactCSSTransitionGroup {...transitionConfig}>
+            {loaderElement}
+          </ReactCSSTransitionGroup>
+        ) : loaderElement}
       </div>
     );
   }

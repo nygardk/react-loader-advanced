@@ -8,6 +8,12 @@ const contentBoxStyle = {
   border: '1px solid lightgrey',
 };
 
+const transitionConfig = {
+  transitionName: 'fadeTransition',
+  transitionEnterTimeout: 300,
+  transitionLeaveTimeout: 300,
+};
+
 class Demo extends Component {
   state = {
     loader1: false,
@@ -59,15 +65,19 @@ class Demo extends Component {
           <button onClick={this.load}>Load</button>
         )}
 
-        <Loader show={loader1} priority={10}>
+        <Loader transitionConfig={transitionConfig} show={loader1} priority={10}>
           <div style={contentBoxStyle}>
             Loader 1 content
 
-            <Loader show={loader2} hideContentOnLoad priority={5}>
+            <Loader
+              transitionConfig={transitionConfig}
+              show={loader2}
+              hideContentOnLoad
+              priority={5}>
               <div style={contentBoxStyle}>
                 Loader 2 content (hidden until load)
 
-                <Loader show={loader4} priority={5}>
+                <Loader transitionConfig={transitionConfig} show={loader4} priority={5}>
                   <div style={contentBoxStyle}>
                     Loader 4 content
                   </div>
@@ -75,7 +85,7 @@ class Demo extends Component {
               </div>
             </Loader>
 
-            <Loader show={loader3} priority={5}>
+            <Loader transitionConfig={transitionConfig} show={loader3} priority={5}>
               <div style={{ ...contentBoxStyle, marginTop: 20 }}>
                 Loader 3 content
               </div>
