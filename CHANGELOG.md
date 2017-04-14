@@ -1,6 +1,7 @@
-## 1.5.0 (April 14, 2017)
+## 1.5.1 (April 14, 2017)
 
 * Use React `Component` instead of `createClass` and `prop-types` library to suppress deprication warnings
+* Dropped support for React v. 0.13
 
 ## 1.4.0 (May 28, 2016)
 
