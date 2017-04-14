@@ -118,6 +118,11 @@ __disableDefaultStyles__ (bool)
 Disables default styles for background, foreground and message if set
 to _true_ (not recommended).
 
+__transitionConfig__ (object)
+<br>
+Configure `ReactCSSTransitionGroup` for the loader overlay to add e.g. fade animation.
+See: [react-transition-group](https://github.com/reactjs/react-transition-group)
+
 ## FAQ
 
 ##### Can I use a spinner element?

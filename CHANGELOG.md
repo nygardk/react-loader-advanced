@@ -1,3 +1,8 @@
+## 1.6.0 (April 14, 2017)
+
+* Added `transitionConfig` prop to allow configuring `ReactCSSTransitionGroup` for the loader overlay.
+* Added fade transition to demo0.
+
 ## 1.5.0 (April 14, 2017)
 
 * Use React `Component` instead of `createClass` and `prop-types` library to suppress deprication warnings
