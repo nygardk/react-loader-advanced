@@ -38,6 +38,9 @@ module.exports = {
   },
   plugins: ENV === 'development'
     ? [new webpack.HotModuleReplacementPlugin()]
-    : [],
+    : [new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false },
+        comments: false
+      })],
   eslint: {configFile: '.eslintrc'}
 };
