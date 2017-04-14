@@ -1,5 +1,6 @@
 /* eslint-disable prefer-template, quote-props */
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { EventEmitter } from 'events';
 
 function uid() {
@@ -79,59 +80,60 @@ const loaderStack = {
   },
 };
 
-const Loader = React.createClass({
-  propTypes: {
-    backgroundStyle: React.PropTypes.object,
+class Loader extends Component {
+  static propTypes = {
+    backgroundStyle: PropTypes.object,
 
-    children: React.PropTypes.node,
+    children: PropTypes.node,
 
-    className: React.PropTypes.string,
+    className: PropTypes.string,
 
     // blur loader content while loading
-    contentBlur: React.PropTypes.number,
+    contentBlur: PropTypes.number,
 
-    contentStyle: React.PropTypes.object,
+    contentStyle: PropTypes.object,
 
     // disables all default styles if true
-    disableDefaultStyles: React.PropTypes.bool,
+    disableDefaultStyles: PropTypes.bool,
 
-    foregroundStyle: React.PropTypes.object,
+    foregroundStyle: PropTypes.object,
 
-    hideContentOnLoad: React.PropTypes.bool,
+    hideContentOnLoad: PropTypes.bool,
 
     // loader message or element
-    message: React.PropTypes.node,
+    message: PropTypes.node,
 
-    messageStyle: React.PropTypes.object,
+    messageStyle: PropTypes.object,
 
     // stack priority
-    priority: React.PropTypes.number,
+    priority: PropTypes.number,
 
-    show: React.PropTypes.bool.isRequired,
+    show: PropTypes.bool.isRequired,
 
-    style: React.PropTypes.object,
-  },
+    style: PropTypes.object,
+  }
 
-  getDefaultProps() {
-    return { priority: 0 };
-  },
+  static defaultProps = {
+    message: 'loading...',
+    priority: 0,
+  }
 
-  getInitialState() {
-    return { active: false };
-  },
+  state = {
+    active: false,
+  }
 
   componentWillMount() {
     this._stackId = uid();
-  },
+  }
 
   componentDidMount() {
     loaderStack.addChangeListener(this.onStackChange);
     this.initialize(this.props);
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.initialize(nextProps);
-  },
+  }
 
   componentWillUnmount() {
     loaderStack.removeChangeListener(this.onStackChange);
@@ -143,23 +145,23 @@ const Loader = React.createClass({
     setTimeout(() => {
       loaderStack.removeLoader(this._stackId);
     });
-  },
+  }
 
-  onStackChange() {
-    if (this.isMounted()) {
-      this.setState({
-        active: loaderStack.getMaxPriority() === this.props.priority,
-      });
-    }
-  },
+  onStackChange = () => {
+    // if (this.isMounted()) {
+    this.setState({
+      active: loaderStack.getMaxPriority() === this.props.priority,
+    });
+    // }
+  }
 
-  initialize(props) {
+  initialize = (props) => {
     if (props.show) {
       loaderStack.addLoader(this._stackId, props.priority);
     } else {
       loaderStack.removeLoader(this._stackId);
     }
-  },
+  }
 
   render() {
     const {
@@ -222,14 +224,14 @@ const Loader = React.createClass({
           <div className="Loader__background" style={bgStyle}>
             <div className="Loader__foreground" style={fgStyle}>
               <div className="Loader__message" style={msgStyle}>
-                {message || 'loading...'}
+                {message}
               </div>
             </div>
           </div>
         )}
       </div>
     );
-  },
-});
+  }
+}
 
 export default Loader;

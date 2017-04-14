@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Loader from 'react-loader-advanced';
-
 
 const contentBoxStyle = {
   backgroundColor: 'white',
@@ -9,21 +8,19 @@ const contentBoxStyle = {
   border: '1px solid lightgrey',
 };
 
-const Demo = React.createClass({
-  getInitialState() {
-    return {
-      loader1: false,
-      loader2: false,
-      loader3: false,
-      loader4: false,
-    };
-  },
+class Demo extends Component {
+  state = {
+    loader1: false,
+    loader2: false,
+    loader3: false,
+    loader4: false,
+  }
 
   componentDidMount() {
     this.load();
-  },
+  }
 
-  load() {
+  load = () => {
     this.setState({
       loader1: true,
       loader2: true,
@@ -46,7 +43,7 @@ const Demo = React.createClass({
     setTimeout(() => {
       this.setState({ loader4: false });
     }, 6000);
-  },
+  }
 
   render() {
     const {
@@ -87,7 +84,7 @@ const Demo = React.createClass({
         </Loader>
       </div>
     );
-  },
-});
+  }
+}
 
 export default Demo;

@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-boolean-value */
-import React from 'react';
+import React, { Component } from 'react';
 import Loader from 'react-loader-advanced';
 
 const customMessageElement = (
   <div>custom message element</div>
 );
 
-const Demo = React.createClass({
+class Demo extends Component {
   render() {
     return (
       <div>
@@ -17,7 +17,7 @@ const Demo = React.createClass({
         </Loader>
       </div>
     );
-  },
-});
+  }
+}
 
 export default Demo;
