@@ -1,6 +1,6 @@
 {
   "name": "react-loader-advanced",
-  "version": "1.5.1",
+  "version": "1.5.0",
   "description": "Show loader overlaying your component during async events.",
   "main": "./lib/react-loader-advanced.js",
   "scripts": {
@@ -68,6 +68,6 @@
     "prop-types": "15.5.8"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
+    "react": "^0.13.0 || ^0.14.0 || ^15.0.0"
   }
 }
