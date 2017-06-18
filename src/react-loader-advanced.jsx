@@ -1,7 +1,7 @@
 /* eslint-disable prefer-template, quote-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { EventEmitter } from 'events';
 
 function uid() {
@@ -239,9 +239,9 @@ class Loader extends Component {
         </div>
 
         {!!transitionConfig ? (
-          <ReactCSSTransitionGroup {...transitionConfig}>
+          <CSSTransitionGroup {...transitionConfig}>
             {loaderElement}
-          </ReactCSSTransitionGroup>
+          </CSSTransitionGroup>
         ) : loaderElement}
       </div>
     );
