@@ -1,3 +1,7 @@
+## 1.6.1 (Jun 18, 2017)
+
+* Use `react-transition-group` instead of `react-addons-css-transition-group`.
+
 ## 1.6.0 (April 14, 2017)
 
 * Added `transitionConfig` prop to allow configuring `ReactCSSTransitionGroup` for the loader overlay.
