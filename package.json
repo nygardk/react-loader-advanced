@@ -3,6 +3,7 @@
   "version": "1.6.1",
   "description": "Show loader overlaying your component during async events.",
   "main": "./lib/react-loader-advanced.js",
+  "types": "./index.d.ts",
   "scripts": {
     "build": "npm run lint && npm run build-src && npm run build-demos",
     "build-src": "babel ./src --out-dir ./lib",
