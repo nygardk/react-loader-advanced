@@ -1,3 +1,7 @@
+## 1.6.2 (Jul 15, 2017)
+
+* Added TypeScript definitions.
+
 ## 1.6.1 (Jun 18, 2017)
 
 * Use `react-transition-group` instead of `react-addons-css-transition-group`.
