@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { EventEmitter } from 'events';
+import EventEmitter from 'wolfy87-eventemitter';
 
 function uid() {
   return Math.random().toString(36).substr(2, 9);
