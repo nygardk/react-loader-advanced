@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <title>react-loader-advanced/demos/demo0</title>
+
+  <style type="text/css">
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #e4e4e4;
+      padding: 10px;
+    }
+
+    button {
+      margin: 0 0 10px 0;
+    }
+
+    .fadeTransition-enter {
+      opacity: 0;
+    }
+
+    .fadeTransition-enter.fadeTransition-enter-active {
+      opacity: 1;
+      transition: opacity 300ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    }
+
+    .fadeTransition-leave {
+      opacity: 1;
+    }
+
+    .fadeTransition-leave.fadeTransition-leave-active {
+      opacity: 0;
+      transition: opacity 300ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <script src="./demo0/bundle.js"></script>
+</body>
+</html>
