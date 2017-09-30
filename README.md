@@ -64,7 +64,7 @@ knowing the class-hierarchy__
 </div>
 ```
 
-See more thorough structure in `./src/react-loader-advanced.jsx`.
+See more thorough structure in `./src/react-loader-advanced.js`.
 
 ## Options (props)
 

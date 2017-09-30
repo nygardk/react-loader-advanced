@@ -9,7 +9,7 @@
     "build-src": "babel ./src --out-dir ./lib",
     "build-demos": "NODE_ENV=production webpack -p --config webpack.demos.config.js",
     "run-demos": "NODE_ENV=development webpack-dev-server --config webpack.demos.config.js --content-base demos/ --progress --colors",
-    "lint": "eslint --ext .jsx ./src ./demos",
+    "lint": "eslint ./src ./demos",
     "test": "karma start --single-run",
     "prepublish": "npm run build",
     "start": "npm run run-demos"

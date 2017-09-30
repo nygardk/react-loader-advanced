@@ -5,8 +5,8 @@ var ENV = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
-    demo0: ['./demos/demo0/index.jsx'],
-    demo1: ['./demos/demo1/index.jsx']
+    demo0: ['./demos/demo0/index.js'],
+    demo1: ['./demos/demo1/index.js']
   },
   contentBase: './demos',
   output: {
