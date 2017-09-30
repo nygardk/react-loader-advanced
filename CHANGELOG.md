@@ -1,3 +1,8 @@
+## 1.7.0 (Sep 30, 2017)
+
+* Use EventEmitter from `wolfy87-eventemitter` (fixes issue #8)
+* Allow React version `^16.0.0` as dependency
+
 ## 1.6.2 (Jul 15, 2017)
 
 * Added TypeScript definitions.
