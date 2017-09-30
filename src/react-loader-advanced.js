@@ -1,4 +1,10 @@
-/* eslint-disable prefer-template, quote-props, no-underscore-dangle */
+/* eslint-disable
+  prefer-template,
+  quote-props,
+  no-underscore-dangle,
+  react/require-default-props,
+  react/forbid-prop-types
+  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -59,11 +65,11 @@ export const createLoaderStack = () => ({
   getMaxPriority() {
     let max = 0;
 
-    for (const value of this.stack) {
-      if (value.priority > max) {
-        max = value.priority;
+    Object.keys(this.stack).forEach((key) => {
+      if (this.stack[key].priority > max) {
+        max = this.stack[key].priority;
       }
-    }
+    });
 
     return max;
   },
@@ -81,172 +87,170 @@ export const createLoaderStack = () => ({
   },
 });
 
-const createLoader = (loaderStack) => {
-  return class Loader extends Component {
-    static propTypes = {
-      backgroundStyle: PropTypes.object,
+const createLoader = loaderStack => class Loader extends Component {
+  static propTypes = {
+    backgroundStyle: PropTypes.object,
 
-      children: PropTypes.node,
+    children: PropTypes.node,
 
-      className: PropTypes.string,
+    className: PropTypes.string,
 
-      // blur loader content while loading
-      contentBlur: PropTypes.number,
+    // blur loader content while loading
+    contentBlur: PropTypes.number,
 
-      contentStyle: PropTypes.object,
+    contentStyle: PropTypes.object,
 
-      // disables all default styles if true
-      disableDefaultStyles: PropTypes.bool,
+    // disables all default styles if true
+    disableDefaultStyles: PropTypes.bool,
 
-      foregroundStyle: PropTypes.object,
+    foregroundStyle: PropTypes.object,
 
-      hideContentOnLoad: PropTypes.bool,
+    hideContentOnLoad: PropTypes.bool,
 
-      // loader message or element
-      message: PropTypes.node,
+    // loader message or element
+    message: PropTypes.node,
 
-      messageStyle: PropTypes.object,
+    messageStyle: PropTypes.object,
 
-      // stack priority
-      priority: PropTypes.number,
+    // stack priority
+    priority: PropTypes.number,
 
-      show: PropTypes.bool.isRequired,
+    show: PropTypes.bool.isRequired,
 
-      style: PropTypes.object,
+    style: PropTypes.object,
 
-      transitionConfig: PropTypes.shape({
-        transitionName: PropTypes.string.isRequired,
-        transitionEnterTimeout: PropTypes.number.isRequired,
-        transitionLeaveTimeout: PropTypes.number.isRequired,
-      }),
+    transitionConfig: PropTypes.shape({
+      transitionName: PropTypes.string.isRequired,
+      transitionEnterTimeout: PropTypes.number.isRequired,
+      transitionLeaveTimeout: PropTypes.number.isRequired,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    message: 'loading...',
+    priority: 0,
+  }
+
+  state = {
+    active: false,
+  }
+
+  componentWillMount() {
+    this._stackId = uid();
+  }
+
+  componentDidMount() {
+    loaderStack.addChangeListener(this.onStackChange);
+    this.initialize(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initialize(nextProps);
+  }
+
+  componentWillUnmount() {
+    loaderStack.removeChangeListener(this.onStackChange);
+
+    // Bugfix: 3.3.2016
+    // setTimeout fixes rare bug with React 0.13 that is caused by unpredictable
+    // component lifecycle (Uncaught Error: Invariant Violation:
+    // must be mounted to trap events).
+    setTimeout(() => {
+      loaderStack.removeLoader(this._stackId);
+    });
+  }
+
+  onStackChange = () => {
+    // if (this.isMounted()) {
+    this.setState({
+      active: loaderStack.getMaxPriority() === this.props.priority,
+    });
+    // }
+  }
+
+  initialize = (props) => {
+    if (props.show) {
+      loaderStack.addLoader(this._stackId, props.priority);
+    } else {
+      loaderStack.removeLoader(this._stackId);
     }
+  }
 
-    static defaultProps = {
-      message: 'loading...',
-      priority: 0,
-    }
+  render() {
+    const {
+      backgroundStyle,
+      children,
+      className,
+      contentBlur,
+      contentStyle,
+      disableDefaultStyles,
+      foregroundStyle,
+      hideContentOnLoad,
+      message,
+      messageStyle,
+      style,
+      show,
+      transitionConfig,
+    } = this.props;
 
-    state = {
-      active: false,
-    }
+    const {
+      active,
+    } = this.state;
 
-    componentWillMount() {
-      this._stackId = uid();
-    }
+    const shouldShowLoader = !!active && !!show;
 
-    componentDidMount() {
-      loaderStack.addChangeListener(this.onStackChange);
-      this.initialize(this.props);
-    }
+    const bgStyle = {
+      ...(disableDefaultStyles ? {} : backgroundDefaultStyle),
+      ...backgroundStyle,
+    };
 
-    componentWillReceiveProps(nextProps) {
-      this.initialize(nextProps);
-    }
+    const fgStyle = {
+      ...(disableDefaultStyles ? {} : foregroundDefaultStyle),
+      ...foregroundStyle,
+    };
 
-    componentWillUnmount() {
-      loaderStack.removeChangeListener(this.onStackChange);
+    const msgStyle = {
+      ...(disableDefaultStyles ? {} : messageDefaultStyle),
+      ...messageStyle,
+    };
 
-      // Bugfix: 3.3.2016
-      // setTimeout fixes rare bug with React 0.13 that is caused by unpredictable
-      // component lifecycle (Uncaught Error: Invariant Violation:
-      // must be mounted to trap events).
-      setTimeout(() => {
-        loaderStack.removeLoader(this._stackId);
-      });
-    }
+    const loaderStyle = { position: 'relative', ...style };
 
-    onStackChange = () => {
-      // if (this.isMounted()) {
-      this.setState({
-        active: loaderStack.getMaxPriority() === this.props.priority,
-      });
-      // }
-    }
+    const finalContentStyle = Object.assign(shouldShowLoader && contentBlur ? {
+      'WebkitFilter': `blur(${contentBlur}px)`,
+      'MozFilter': `blur(${contentBlur}px)`,
+      'OFilter': `blur(${contentBlur}px)`,
+      'msFilter': `blur(${contentBlur}px)`,
+      'filter': `blur(${contentBlur}px)`,
+    } : {}, contentStyle, {
+      opacity: hideContentOnLoad && show ? 0 : 1,
+    });
 
-    initialize = (props) => {
-      if (props.show) {
-        loaderStack.addLoader(this._stackId, props.priority);
-      } else {
-        loaderStack.removeLoader(this._stackId);
-      }
-    }
+    const classes = 'Loader' + (className ? (' ' + className) : '');
 
-    render() {
-      const {
-        backgroundStyle,
-        children,
-        className,
-        contentBlur,
-        contentStyle,
-        disableDefaultStyles,
-        foregroundStyle,
-        hideContentOnLoad,
-        message,
-        messageStyle,
-        style,
-        show,
-        transitionConfig,
-      } = this.props;
-
-      const {
-        active,
-      } = this.state;
-
-      const shouldShowLoader = !!active && !!show;
-
-      const bgStyle = {
-        ...(disableDefaultStyles ? {} : backgroundDefaultStyle),
-        ...backgroundStyle,
-      };
-
-      const fgStyle = {
-        ...(disableDefaultStyles ? {} : foregroundDefaultStyle),
-        ...foregroundStyle,
-      };
-
-      const msgStyle = {
-        ...(disableDefaultStyles ? {} : messageDefaultStyle),
-        ...messageStyle,
-      };
-
-      const loaderStyle = { position: 'relative', ...style };
-
-      const finalContentStyle = Object.assign(shouldShowLoader && contentBlur ? {
-        'WebkitFilter': `blur(${contentBlur}px)`,
-        'MozFilter': `blur(${contentBlur}px)`,
-        'OFilter': `blur(${contentBlur}px)`,
-        'msFilter': `blur(${contentBlur}px)`,
-        'filter': `blur(${contentBlur}px)`,
-      } : {}, contentStyle, {
-        opacity: hideContentOnLoad && show ? 0 : 1,
-      });
-
-      const classes = 'Loader' + (!!className ? (' ' + className) : '');
-
-      const loaderElement = !!shouldShowLoader && (
-        <div className="Loader__background" style={bgStyle}>
-          <div className="Loader__foreground" style={fgStyle}>
-            <div className="Loader__message" style={msgStyle}>
-              {message}
-            </div>
+    const loaderElement = !!shouldShowLoader && (
+      <div className="Loader__background" style={bgStyle}>
+        <div className="Loader__foreground" style={fgStyle}>
+          <div className="Loader__message" style={msgStyle}>
+            {message}
           </div>
         </div>
-      );
+      </div>
+    );
 
-      return (
-        <div className={classes} style={loaderStyle}>
-          <div className="Loader__content" style={finalContentStyle}>
-            {children}
-          </div>
-
-          {!!transitionConfig ? (
-            <CSSTransitionGroup {...transitionConfig}>
-              {loaderElement}
-            </CSSTransitionGroup>
-          ) : loaderElement}
+    return (
+      <div className={classes} style={loaderStyle}>
+        <div className="Loader__content" style={finalContentStyle}>
+          {children}
         </div>
-      );
-    }
+
+        {transitionConfig ? (
+          <CSSTransitionGroup {...transitionConfig}>
+            {loaderElement}
+          </CSSTransitionGroup>
+        ) : loaderElement}
+      </div>
+    );
   }
 };
 
