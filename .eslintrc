@@ -1,13 +1,10 @@
 {
-  "extends": "eslint-config-airbnb",
+  "extends": "airbnb",
   "env": {
-    "es6": true
+    "es6": true,
+    "browser": true
   },
   "parser": "babel-eslint",
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
-  },
   "plugins": [
     "react"
   ],
@@ -16,6 +13,11 @@
     "react/jsx-closing-bracket-location": 0,
     "react/no-did-mount-set-state": 0,
     "react/no-is-mounted": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "react/jsx-filename-extension": 0
   }
 }

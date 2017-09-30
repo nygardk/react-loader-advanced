@@ -1,4 +1,4 @@
-/* eslint-disable prefer-template, quote-props */
+/* eslint-disable prefer-template, quote-props, no-underscore-dangle */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';

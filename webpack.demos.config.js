@@ -1,46 +1,44 @@
-var webpack = require('webpack');
-var path = require('path');
-
-var ENV = process.env.NODE_ENV;
+const path = require('path');
 
 module.exports = {
+  devtool: process.env !== 'PRODUCTION' ? '#cheap-module-source-map' : false,
   entry: {
-    demo0: ['./demos/demo0/index.js'],
-    demo1: ['./demos/demo1/index.js']
+    demo0: [
+      'babel-polyfill',
+      './demos/demo0/index.js',
+    ],
+    demo1: [
+      'babel-polyfill',
+      './demos/demo1/index.js',
+    ],
   },
-  contentBase: './demos',
+  resolve: {
+    modules: [
+      path.resolve('./src'),
+      'node_modules',
+    ],
+    alias: {
+      'react-loader-advanced': path.resolve(__dirname, './src/react-loader-advanced'),
+    },
+  },
   output: {
     filename: '[name]/bundle.js',
     publicPath: '/',
-    path: path.resolve(__dirname, 'demos')
+    path: path.resolve(__dirname, 'docs'),
   },
   module: {
-    preLoaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'eslint',
-        exclude: /node_modules|lib/
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
     ],
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ENV === 'development'
-          ? ['react-hot', 'babel']
-          : ['babel'],
-        exclude: /node_modules|lib/
-      }
-    ]
   },
-  resolve: {
-    root: [path.resolve('./src')],
-    extensions: ['', '.js', '.jsx']
-  },
-  plugins: ENV === 'development'
-    ? [new webpack.HotModuleReplacementPlugin()]
-    : [new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false },
-        comments: false
-      })],
-  eslint: {configFile: '.eslintrc'}
 };
