@@ -1,13 +1,12 @@
-const rewire = require('rewire');
-
-let Loader;
+import {
+  createLoaderStack,
+} from 'react-loader-advanced';
 
 describe('loaderStack', () => {
   let loaderStack;
 
   beforeEach(() => {
-    Loader = rewire('react-loader-advanced');
-    loaderStack = Loader.__get__('loaderStack');
+    loaderStack = createLoaderStack();
   });
 
   describe('addLoader()', () => {
@@ -16,20 +15,20 @@ describe('loaderStack', () => {
 
       loaderStack.addLoader('abc');
 
-      expect(loaderStack.stack).toEqual([{id: 'abc', priority: 0}]);
+      expect(loaderStack.stack).toEqual([{ id: 'abc', priority: 0 }]);
     });
 
     it('should not add loader to stack if it exists already', () => {
       loaderStack.stack = [
-        {id: 'abc', priority: 0},
-        {id: 'bbb', priority: 0}
+        { id: 'abc', priority: 0 },
+        { id: 'bbb', priority: 0 },
       ];
 
       loaderStack.addLoader('abc');
 
       expect(loaderStack.stack).toEqual([
-        {id: 'abc', priority: 0},
-        {id: 'bbb', priority: 0}
+        { id: 'abc', priority: 0 },
+        { id: 'bbb', priority: 0 },
       ]);
     });
   });
@@ -37,24 +36,24 @@ describe('loaderStack', () => {
   describe('removeLoader()', () => {
     it('should remove loader from stack', () => {
       loaderStack.stack = [
-        {id: 'abc', priority: 0},
-        {id: 'bbb', priority: 0}
+        { id: 'abc', priority: 0 },
+        { id: 'bbb', priority: 0 },
       ];
 
       loaderStack.removeLoader('abc');
 
-      expect(loaderStack.stack).toEqual([{id: 'bbb', priority: 0}]);
+      expect(loaderStack.stack).toEqual([{ id: 'bbb', priority: 0 }]);
     });
   });
 
   describe('getMaxPriority()', () => {
     it('should return the highest priority from the stack', () => {
       loaderStack.stack = [
-        {id: 'abc', priority: 5},
-        {id: 'bbb', priority: 0},
-        {id: 'fgg', priority: 3},
-        {id: 'ccc', priority: 11},
-        {id: 'ddd', priority: 2}
+        { id: 'abc', priority: 5 },
+        { id: 'bbb', priority: 0 },
+        { id: 'fgg', priority: 3 },
+        { id: 'ccc', priority: 11 },
+        { id: 'ddd', priority: 2 },
       ];
 
       expect(loaderStack.getMaxPriority()).toEqual(11);

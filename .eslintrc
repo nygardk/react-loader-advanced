@@ -2,11 +2,13 @@
   "extends": "airbnb",
   "env": {
     "es6": true,
-    "browser": true
+    "browser": true,
+    "jasmine": true
   },
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "jasmine"
   ],
   "rules": {
     "react/prefer-es6-class": 0,

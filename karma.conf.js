@@ -1,53 +1,49 @@
-'use strict';
-
-var path = require('path');
-var RewirePlugin = require('rewire-webpack');
-
-var webpackConfig = {
-  devtool: 'inline-source-map',
-  resolve: {
-    root: [path.resolve('./src')],
-    extensions: ['', '.js', '.jsx']
-  },
-  module: {
-    preLoaders: [
-      {test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/},
-    ],
-    loaders: [
-      {test: /\.jsx?$/, loaders: ['babel'], exclude: /node_modules/}
-    ]
-  },
-  stats: {
-    colors: true,
-  },
-  plugins: [
-    new RewirePlugin()
-  ],
-  eslint: {configFile: '.eslintrc'}
-};
+const path = require('path');
 
 module.exports = function(config) {
   config.set({
     basePath: '',
+
     frameworks: ['jasmine'],
+
     files: [
-      'node_modules/babel-core/browser-polyfill.js',
-      'test/**/*-spec.js'
+      'node_modules/babel-polyfill/dist/polyfill.js',
+      { pattern: 'test/**/*-spec.js', watched: false },
     ],
+
     preprocessors: {
-      'test/**/*.js': ['webpack', 'sourcemap']
+      'test/**/*.js': ['webpack', 'sourcemap'],
     },
-    webpack: webpackConfig,
-    webpackServer: {
-      noInfo: true
-    },
-    webpackMiddleware: {
-      stats: {
-        chunkModules: false,
-        colors: true,
+
+    webpack: {
+      devtool: 'inline-source-map',
+      resolve: {
+        modules: [
+          path.resolve(__dirname, './src'),
+          'node_modules',
+        ],
+        alias: {
+          'prop-types': path.resolve(__dirname, './node_modules/prop-types'),
+        },
+      },
+      module: {
+        rules: [
+          {
+            enforce: 'pre',
+            test: /\.js$/,
+            loader: 'eslint-loader',
+            exclude: /node_modules/,
+          },
+          {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+          },
+        ],
       },
     },
-    reporters: ['nyan'],
+
+    reporters: ['progress'],
     captureTimeout: 90000,
     browserNoActivityTimeout: 60000,
     port: 9876,
