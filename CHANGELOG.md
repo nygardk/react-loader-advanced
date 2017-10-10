@@ -1,3 +1,7 @@
+## 1.7.1 (Oct 10, 2017)
+
+* `transitionConfig` is no longer required prop (was made required by accident)
+
 ## 1.7.0 (Sep 30, 2017)
 
 * Use EventEmitter from `wolfy87-eventemitter` (fixes issue #8)
