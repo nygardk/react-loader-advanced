@@ -123,7 +123,7 @@ const createLoader = loaderStack => class Loader extends Component {
       transitionName: PropTypes.string.isRequired,
       transitionEnterTimeout: PropTypes.number.isRequired,
       transitionLeaveTimeout: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
   }
 
   static defaultProps = {
