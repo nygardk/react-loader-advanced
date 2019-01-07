@@ -7,6 +7,7 @@
   */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import EventEmitter from 'wolfy87-eventemitter';
 
@@ -121,6 +122,13 @@ const createLoader = loaderStack => class Loader extends Component {
 
     transitionConfig: PropTypes.shape({
       classNames: PropTypes.string.isRequired,
+      timeout: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.shape({
+          enter: PropTypes.number,
+          exit: PropTypes.number,
+        }),
+      ]).isRequired,
     }),
   }
 
@@ -243,8 +251,12 @@ const createLoader = loaderStack => class Loader extends Component {
         </div>
 
         {transitionConfig ? (
-          <TransitionGroup {...transitionConfig}>
-            {loaderElement}
+          <TransitionGroup>
+            {loaderElement && (
+              <CSSTransition {...transitionConfig}>
+                {loaderElement}
+              </CSSTransition>
+            )}
           </TransitionGroup>
         ) : loaderElement}
       </div>
