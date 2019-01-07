@@ -2,9 +2,7 @@ import * as React from 'react'
 
 declare module 'react-loader-advanced' {
   interface TransitionConfig {
-    transitionName: string
-    transitionEnterTimeout: number
-    transitionLeaveTimeout: number
+    classNames: string
   }
 
   interface Props {
