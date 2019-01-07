@@ -1,10 +1,14 @@
 import * as React from 'react'
 
 declare module 'react-loader-advanced' {
+  interface Timeout {
+    enter: number
+    exit: number
+  }
+
   interface TransitionConfig {
-    transitionName: string
-    transitionEnterTimeout: number
-    transitionLeaveTimeout: number
+    classNames: string
+    timeout: number | Timeout
   }
 
   interface Props {

@@ -7,7 +7,8 @@
   */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import CSSTransition from 'react-transition-group/CSSTransition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 import EventEmitter from 'wolfy87-eventemitter';
 
 function uid() {
@@ -120,9 +121,14 @@ const createLoader = loaderStack => class Loader extends Component {
     style: PropTypes.object,
 
     transitionConfig: PropTypes.shape({
-      transitionName: PropTypes.string.isRequired,
-      transitionEnterTimeout: PropTypes.number.isRequired,
-      transitionLeaveTimeout: PropTypes.number.isRequired,
+      classNames: PropTypes.string.isRequired,
+      timeout: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.shape({
+          enter: PropTypes.number,
+          exit: PropTypes.number,
+        }),
+      ]).isRequired,
     }),
   }
 
@@ -245,9 +251,13 @@ const createLoader = loaderStack => class Loader extends Component {
         </div>
 
         {transitionConfig ? (
-          <CSSTransitionGroup {...transitionConfig}>
-            {loaderElement}
-          </CSSTransitionGroup>
+          <TransitionGroup>
+            {loaderElement && (
+              <CSSTransition {...transitionConfig}>
+                {loaderElement}
+              </CSSTransition>
+            )}
+          </TransitionGroup>
         ) : loaderElement}
       </div>
     );
