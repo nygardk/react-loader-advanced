@@ -9,9 +9,11 @@ const contentBoxStyle = {
 };
 
 const transitionConfig = {
-  transitionName: 'fadeTransition',
-  transitionEnterTimeout: 300,
-  transitionLeaveTimeout: 300,
+  classNames: 'fadeTransition',
+  timeout: {
+    enter: 300,
+    exit: 300,
+  },
 };
 
 class Demo extends Component {
