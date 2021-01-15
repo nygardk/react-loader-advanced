@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-comp */
+/* eslint-disable camelcase */
 /* eslint-disable
   prefer-template,
   quote-props,
@@ -87,7 +89,7 @@ export const createLoaderStack = () => ({
   },
 });
 
-const createLoader = loaderStack => class Loader extends Component {
+const createLoader = loaderStack => (class Loader extends Component {
   static propTypes = {
     backgroundStyle: PropTypes.object,
 
@@ -135,7 +137,7 @@ const createLoader = loaderStack => class Loader extends Component {
     active: false,
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._stackId = uid();
   }
 
@@ -144,7 +146,7 @@ const createLoader = loaderStack => class Loader extends Component {
     this.initialize(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.initialize(nextProps);
   }
 
@@ -252,6 +254,6 @@ const createLoader = loaderStack => class Loader extends Component {
       </div>
     );
   }
-};
+});
 
 export default createLoader(createLoaderStack());
